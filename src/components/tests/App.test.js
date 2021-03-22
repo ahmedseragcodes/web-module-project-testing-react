@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, userEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
 import App from '../../App';
 
@@ -13,7 +13,7 @@ test('target dropdown', async ()=>{
     await waitFor(()=>{
         const selectASeasonLabel = screen.findByLabelText(/Select A Season/i);
         
-        expect(selectASeasonLabel).toBeInTheDocument();
+        expect(selectASeasonLabel).toBeTruthy();
     });
     
 });
