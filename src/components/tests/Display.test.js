@@ -1,11 +1,71 @@
+import React from "react";
+import { screen, render, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+
+import Display from "../Display";
+import Show from "../Show";
+
+const mockShow = {
+    name: "testShow",
+    image: "",
+    seasons: [
+      {
+        id: "",
+        name: "testSeason",
+        episodes: [
+            {
+                name: "testEpisode1",
+                id: 1,
+            },
+            {
+                name: "testEpisode2",
+                id: 2,
+            }
+        ],
+      }
+    ],
+    summary: "",
+  }
+
+
+const mockDisplayFunction = jest.fn();
+
+const mockHandleSelectFunction = jest.fn();
+
+test("Display component renders without props without error", ()=>{
+    render(<Display />)
+})
+
+
+test("Display component renders with props without error", ()=>{
+    render(<Display displayFun={mockDisplayFunction}/>)
+})
 
 
 
+test("Show component renders without props without error", ()=>{
+    render(<Display displayFun={mockDisplayFunction}/>)
+
+    const pressToGetShowButton = screen.queryByRole("button", /Press to Get Show Data/i);
+
+    userEvent.click(pressToGetShowButton);
+
+    render(<Show />)
+})
 
 
+test("Show component renders with props without error", async()=>{
+    render(<Display displayFun={mockDisplayFunction}/>)
 
+    const pressToGetShowButton = screen.queryByRole("button", /Press to Get Show Data/i);
 
+    userEvent.click(pressToGetShowButton);
 
+    await waitFor(()=>{
+        render(<Show show={mockShow} selectedSeason={mockShow.seasons[0]} handleSelect={mockHandleSelectFunction} />)
+    })
+    
+})
 
 
 

@@ -2,12 +2,14 @@ import React from 'react';
 import Episodes from "./Episodes";
 import Loading from './Loading';
 
+
 const Show = (props) => {
     const { handleSelect, selectedSeason, show } = props;
     
     if (!show)
       return <Loading />
 
+      console.log("THIS IS WHAT A SHOW LOOKS LIKE AFTER FETCH IN DISPLAY", show);
     return(<div data-testid="show-container">
         <h1>{show.name}</h1>
         <p>{show.summary}</p>
