@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { rerender, render, screen } from '@testing-library/react';
 import Episode from './../Episode';
 
 const testEpisode = {
@@ -14,10 +14,17 @@ const testEpisode = {
 
 const testEpisodeWithoutImage = {
     //Add in approprate test data structure here.
+    id:1,
+    name: "",
+    image: "",
+    season: 1,
+    number: 1,
+    summary: "",
+    runtime: 1
 }
 
 test("renders without error", () => {
-
+    const { rerender } = render(<Episode/>)
 });
 
 test("renders the summury test passed as prop", ()=>{
