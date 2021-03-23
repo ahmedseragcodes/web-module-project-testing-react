@@ -1,20 +1,57 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Show from './../Show';
 
 const testShow = {
-    //add in approprate test data structure here.
+    name: "testShow",
+    image: "",
+    seasons: [
+      {
+        id: "",
+        name: "testSeason",
+        episodes: [
+            {
+                name: "testEpisode1",
+                id: 1,
+            },
+            {
+                name: "testEpisode2",
+                id: 2,
+            }
+        ],
+      }
+    ],
+    summary: "this is a test summary",
 }
 
+const mockHandleSelectFunction = jest.fn();
+
 test('renders testShow and no selected Season without errors', ()=>{
+    render(<Show show={testShow} selectedSeason={"none"}/>)
 });
 
 test('renders Loading component when prop show is null', () => {
+    render(<Show show={null} selectedSeason={"none"}/>)
+
 });
 
-test('renders same number of options seasons are passed in', ()=>{
+test('renders same number of options seasons are passed in', async()=>{
+    render(<Show show={testShow} selectedSeason={"none"}/>)
+
+    await waitFor(()=>{
+        const options=screen.findAllByRole("option")
+
+        console.log("THIS IS WHAT OPTIONS LOOKS LIKE", options);
+        // expect(options[0]).toBeTruthy();
+
+        // expect(options[1]).toBeInTheDocument();
+
+
+    
+    })
+
 });
 
 test('handleSelect is called when an season is selected', () => {
