@@ -45,7 +45,7 @@ test("Display component renders with props without error", ()=>{
 
 test("Show component renders without props without error", ()=>{
 
-    render(<Display displayFun={mockDisplayFunction}/>)
+    render(<Display displayFunc={mockDisplayFunction}/>)
 
     const pressToGetShowButton = screen.queryByRole("button", /Press to Get Show Data/i);
 
@@ -65,17 +65,17 @@ test("Show component renders with props without error after press to get show is
     render(<Show show={mockShow} selectedSeason={"none"} handleSelect={mockHandleSelectFunction} />)
     
     await waitFor(()=>{
-        const optionOne=screen.findByRole("option")
-    
+        const options=screen.findAllByRole("option")
+        
     })
     
 })
 
-test("Display component prop function displayFun is called upon component render", ()=>{
+test("Display component prop function displayFunc is called upon component render", ()=>{
     render(<Display displayFunc={mockDisplayFunction} />)
 
     mockDisplayFunction.mockResolvedValueOnce({
-        data: "hello",
+        data: "hello"
     });
 })
 

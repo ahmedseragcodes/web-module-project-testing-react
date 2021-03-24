@@ -1,8 +1,10 @@
+//TECH IMPORTS 
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
+//COMP IMPORTS
 import Show from './../Show';
+import Loading from "../Loading";
 
 const testShow = {
     name: "testShow",
@@ -13,12 +15,12 @@ const testShow = {
         name: "testSeason",
         episodes: [
             {
-                name: "testEpisode1",
-                id: 1,
+                // name: "testEpisode1",
+                // id: 1,
             },
             {
-                name: "testEpisode2",
-                id: 2,
+                // name: "testEpisode2",
+                // id: 2,
             }
         ],
       }
@@ -35,10 +37,18 @@ test('renders testShow and no selected Season without errors', ()=>{
 test('renders Loading component when prop show is null', () => {
     render(<Show show={null} selectedSeason={"none"}/>)
 
+    render(<Loading />)
+
+    const fetchingMessage=screen.getAllByText(/Fetching Data/i);
+
+    expect(fetchingMessage[0]).toBeInTheDocument();
+
+    expect(fetchingMessage[1]).toBeInTheDocument();
+
 });
 
 test('renders same number of options seasons are passed in', async()=>{
-    render(<Show show={testShow} selectedSeason={"none"}/>)
+    render(<Show show={testShow} selectedSeason={testShow.seasons[0]}/>)
 
     await waitFor(()=>{
         const options=screen.findAllByRole("option")

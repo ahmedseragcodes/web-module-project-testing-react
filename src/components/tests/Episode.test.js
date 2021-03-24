@@ -1,5 +1,5 @@
 import React from 'react';
-import { rerender, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Episode from './../Episode';
 
 const testEpisode = {
@@ -24,7 +24,6 @@ const testEpisodeWithoutImage = {
 }
 
 test("renders without error", () => {
-    const { rerender } = render(<Episode/>)
 });
 
 test("renders the summury test passed as prop", ()=>{
