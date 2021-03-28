@@ -23,12 +23,20 @@ const testShow = {
                 id: 2,
             }
         ],
-      }
+      },
+      {
+        id: 1,
+        name: "testSeason2",
+        episodes: [
+            {},
+            {},
+        ]
+      },
     ],
     summary: "this is a test summary",
 }
 
-const mockHandleSelectFunction = jest.fn();
+
 
 test('renders testShow and no selected Season without errors', ()=>{
     render(<Show show={testShow} selectedSeason={"none"}/>)
@@ -53,21 +61,39 @@ test('renders same number of options seasons are passed in', async()=>{
     await waitFor(()=>{
         const options=screen.queryAllByTestId(/season-option/i);
 
-        expect(options).toHaveLength(1);
+        expect(options).toHaveLength(2);
     
     })
 
 });
 
 test('handleSelect is called when an season is selected', () => {
-    render(<Show show={testShow} selectedSeason={"none"}/>)
+
+    const handleSelect = jest.fn();
+
+    render(<Show show={testShow} selectedSeason={"none"} handleSelect={handleSelect} />)
 
     const select=screen.getByLabelText(/select a season/i);
 
     userEvent.selectOptions(select, ["1"]);
+
+    expect(handleSelect).toBeCalled();
+
+
 });
 
 test('component renders when no seasons are selected and when rerenders with a season passed in', () => {
+
+   const { rerender }= render(<Show show={testShow} selectedSeason={"none"}/>)
+
+   let episodeContainer=  screen.queryByTestId(/episodes-container/i);
+
+   expect(episodeContainer).not.toBeInTheDocument();
+
+   rerender(<Show show={testShow} selectedSeason={1} />);
+
+
+
 });
 
 //Tasks:
