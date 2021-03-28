@@ -11,16 +11,16 @@ const testShow = {
     image: "",
     seasons: [
       {
-        id: "",
+        id: 0,
         name: "testSeason",
         episodes: [
             {
-                // name: "testEpisode1",
-                // id: 1,
+                name: "testEpisode1",
+                id: 1,
             },
             {
-                // name: "testEpisode2",
-                // id: 2,
+                name: "testEpisode2",
+                id: 2,
             }
         ],
       }
@@ -48,23 +48,23 @@ test('renders Loading component when prop show is null', () => {
 });
 
 test('renders same number of options seasons are passed in', async()=>{
-    render(<Show show={testShow} selectedSeason={testShow.seasons[0]}/>)
+    render(<Show show={testShow} selectedSeason={"none"}/>)
 
     await waitFor(()=>{
-        const options=screen.findAllByRole("option")
+        const options=screen.queryAllByTestId(/season-option/i);
 
-        console.log("THIS IS WHAT OPTIONS LOOKS LIKE", options);
-        // expect(options[0]).toBeTruthy();
-
-        // expect(options[1]).toBeInTheDocument();
-
-
+        expect(options).toHaveLength(1);
     
     })
 
 });
 
 test('handleSelect is called when an season is selected', () => {
+    render(<Show show={testShow} selectedSeason={"none"}/>)
+
+    const select=screen.getByLabelText(/select a season/i);
+
+    userEvent.selectOptions(select, ["1"]);
 });
 
 test('component renders when no seasons are selected and when rerenders with a season passed in', () => {
